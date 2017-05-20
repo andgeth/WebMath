@@ -1,22 +1,22 @@
-package main.java.by.vsu.controllers;
+package by.vsu.controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class MainController {
 
-    @RequestMapping("/index")
+    @GetMapping("/index")
     public String index() {
         return "index";
     }
 
-    @RequestMapping("/help")
+    @GetMapping("/help")
     public String help() {
         return "help";
     }
 
-    @RequestMapping("/about")
+    @GetMapping("/about")
     public String about() {
         return "about";
     }

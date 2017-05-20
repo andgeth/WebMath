@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>by.vsu</groupId>
-    <artifactId>web-mathematics</artifactId>
+    <artifactId>webmath</artifactId>
     <packaging>war</packaging>
     <version>1.0</version>
     <name>WebMath</name>
@@ -58,20 +58,6 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>3.1.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>2.4.0</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jmockit</groupId>
-            <artifactId>jmockit</artifactId>
-            <version>1.8</version>
-            <scope>test</scope>
         </dependency>
 
         <dependency>

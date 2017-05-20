@@ -1,110 +1,94 @@
-package main.java.by.vsu.controllers;
+package by.vsu.controllers;
 
-import main.java.by.vsu.integration.RectanglesMethod;
-import main.java.by.vsu.integration.SimpsonMethod;
-import main.java.by.vsu.integration.TrapezeMethod;
+import by.vsu.calculators.IntegrationCalculator;
+import by.vsu.exceptions.ApiException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class IntegrationController {
 
-    @RequestMapping(value = "/rectanglesMethod")
-    public String rectanglesMethod(
-            @RequestParam(value = "function", required = false) String function,
-            @RequestParam(value = "interval", required = false) String interval,
-            @RequestParam(value = "h", required = false) Double h, Model model) {
-        if (function != null) {
-            double a = Double.parseDouble(interval.split(";")[0]);
-            double b = Double.parseDouble(interval.split(";")[1]);
-            try {
-                if (a < b) {
-                    model.addAttribute("interval", interval);
-                    model.addAttribute("h", h);
+    @Autowired private IntegrationCalculator integrationCalculator;
 
-                    RectanglesMethod rmL = new RectanglesMethod(function, a, b, h, 'L');
-                    RectanglesMethod rmC = new RectanglesMethod(function, a, b, h, 'C');
-                    RectanglesMethod rmR = new RectanglesMethod(function, a, b, h, 'R');
-                    double[] resolve = {rmL.resolve(), rmC.resolve(), rmR.resolve()};
-                    for (double i : resolve) {
-                        if (Double.isNaN(i) == true) {
-                            model.addAttribute("answerLeft", "На данном отрезке решений нет!");
-                            return "rectanglesMethod";
-                        }
-                    }
-                    model.addAttribute("answerLeft", "Левый: " + resolve[0]);
-                    model.addAttribute("answerCenter", " Центральный: " + resolve[1]);
-                    model.addAttribute("answerRight", " Правый: " + resolve[2]);
-                } else {
-                    model.addAttribute("answerLeft", "Введены неверные координаты отрезка!");
-                }
-            } catch (Exception ex) {
-                model.addAttribute("answerLeft", "Функция введена некорректно!");
-            }
-        }
-        return "rectanglesMethod";
+    @GetMapping(value = "/rectangles")
+    public String rectangles() {
+        return "rectangles";
     }
 
-    @RequestMapping(value = "/trapezeMethod")
-    public String trapezeMethod(
-            @RequestParam(value = "function", required = false) String function,
-            @RequestParam(value = "interval", required = false) String interval,
-            @RequestParam(value = "h", required = false) Double h, Model model) {
-        if (function != null) {
-            double a = Double.parseDouble(interval.split(";")[0]);
-            double b = Double.parseDouble(interval.split(";")[1]);
-            try {
-                if (a < b) {
-                    model.addAttribute("interval", interval);
-                    model.addAttribute("h", h);
-
-                    TrapezeMethod rmL = new TrapezeMethod(function, a, b, h);
-                    double resolve = rmL.resolve();
-                    if (Double.isNaN(resolve)) {
-                        model.addAttribute("answer", "На данном отрезке решений нет!");
-                        return "rectanglesMethod";
-                    }
-                    model.addAttribute("answer", resolve);
-                } else {
-                    model.addAttribute("answer", "Введены неверные координаты отрезка!");
-                }
-            } catch (Exception ex) {
-                model.addAttribute("answer", "Функция введена некорректно!");
-            }
-        }
-        return "trapezeMethod";
+    @GetMapping(value = "/trapeze")
+    public String trapeze() {
+        return "trapeze";
     }
 
-    @RequestMapping(value = "/simpsonMethod")
-    public String simpsonMethod(
-            @RequestParam(value = "function", required = false) String function,
-            @RequestParam(value = "interval", required = false) String interval,
-            @RequestParam(value = "h", required = false) Double h, Model model) {
-        if (function != null) {
-            double a = Double.parseDouble(interval.split(";")[0]);
-            double b = Double.parseDouble(interval.split(";")[1]);
-            try {
-                if (a < b) {
-                    model.addAttribute("interval", interval);
-                    model.addAttribute("h", h);
+    @GetMapping(value = "/simpson")
+    public String simpson() {
+        return "simpson";
+    }
 
-                    SimpsonMethod rmL = new SimpsonMethod(function, a, b, h);
-                    double resolve = rmL.resolve();
-                    if (Double.isNaN(resolve)) {
-                        model.addAttribute("answer", "На данном отрезке решений нет!");
-                        return "rectanglesMethod";
-                    }
-                    model.addAttribute("answer", resolve);
-                } else {
-                    model.addAttribute("answer", "Введены неверные координаты отрезка!");
-                }
-            } catch (Exception ex) {
-                model.addAttribute("answer", "Функция введена некорректно!");
-            }
+    @PostMapping(value = "/rectangles")
+    public String rectangles(@RequestParam(value = "function") String function,
+                             @RequestParam(value = "interval") String interval,
+                             @RequestParam(value = "h") Double h,
+                             Model model) {
+        try {
+            double[] answer = this.integrationCalculator.rectangles(function, interval, h);
+            model.addAttribute("interval", interval);
+            model.addAttribute("h", h);
+            model.addAttribute("answerLeft", "Левый: " + answer[0]);
+            model.addAttribute("answerCenter", " Центральный: " + answer[1]);
+            model.addAttribute("answerRight", " Правый: " + answer[2]);
+        } catch (ApiException exception) {
+            model.addAttribute("error", exception.getMessage());
+        } catch (Exception exception) {
+            model.addAttribute("error", "Данные введены неверно!");
         }
-        return "simpsonMethod";
+        return "rectangles";
+    }
+
+    @PostMapping(value = "/trapeze")
+    public String trapezeMethod(@RequestParam(value = "function") String function,
+                                @RequestParam(value = "interval") String interval,
+                                @RequestParam(value = "h") Double h,
+                                Model model) {
+        try {
+            double resolve = this.integrationCalculator.trapeze(function, interval, h);
+            if (Double.isNaN(resolve)) {
+                model.addAttribute("error", "На данном отрезке решений нет!");
+            } else {
+                model.addAttribute("answer", resolve);
+                return "answer";
+            }
+        } catch (ApiException exception) {
+            model.addAttribute("error", exception.getMessage());
+        } catch (Exception exception) {
+            model.addAttribute("error", "Данные введены неверно!");
+        }
+        return "trapeze";
+    }
+
+    @PostMapping(value = "/simpson")
+    public String simpson(@RequestParam(value = "function") String function,
+                          @RequestParam(value = "interval") String interval,
+                          @RequestParam(value = "h") Double h,
+                          Model model) {
+        try {
+            double resolve = this.integrationCalculator.simpson(function, interval, h);
+            if (Double.isNaN(resolve)) {
+                model.addAttribute("error", "На данном отрезке решений нет!");
+            } else {
+                model.addAttribute("answer", resolve);
+                return "answer";
+            }
+        } catch (ApiException exception) {
+            model.addAttribute("error", exception.getMessage());
+        } catch (Exception exception) {
+            model.addAttribute("error", "Данные введены неверно!");
+        }
+        return "simpson";
     }
 
 }

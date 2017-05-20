@@ -1,0 +1,22 @@
+.list-group-item {
+    background-color: transparent !important;
+}
+
+#logo {
+    height: 102px;
+}
+
+body {
+    color: #ffffff;
+}
+
+input {
+    color: #000;
+}
+
+textarea {
+    background-color: #212121;
+    border: none;
+    opacity: 1;
+
+}

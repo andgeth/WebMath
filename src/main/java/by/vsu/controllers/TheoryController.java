@@ -1,4 +1,4 @@
-package main.java.by.vsu.controllers;
+package by.vsu.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
