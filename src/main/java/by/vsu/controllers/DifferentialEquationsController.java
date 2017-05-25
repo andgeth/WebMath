@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Arrays;
 
 @Controller
-public class DifferentialEquationsController {
+public class DifferentialEquationsController extends BaseController {
 
     @Autowired private DifferentialEquationCalculator differentialEquationCalculator;
 
@@ -124,13 +124,12 @@ public class DifferentialEquationsController {
     private void prepareForDrawing(double[] answer, String interval, double h, Model model) {
         double a = Double.valueOf(interval.split(";")[0]);
         double[] x = new double[answer.length];
-        double[] y = new double[answer.length];
         for (int i = 0; i < answer.length; i++) {
-            y[i] = answer[i];
             x[i] = a + h * i;
         }
-        model.addAttribute("x", Arrays.toString(x));
-        model.addAttribute("y", Arrays.toString(y));
+        model.addAttribute("x", Arrays.toString(x))
+                .addAttribute("yPoints", Arrays.toString(answer))
+                .addAttribute("drawable", true);
     }
 
 }

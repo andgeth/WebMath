@@ -1,7 +1,6 @@
 package by.vsu.controllers;
 
 import by.vsu.calculators.MathPhysicEquationCalculator;
-import by.vsu.core.math.objects.Matrix;
 import by.vsu.core.mathphysiceq.ellipticequation.SimpleGeometry;
 import by.vsu.exceptions.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.Locale;
 
 @Controller
-public class MathPhysicController {
+public class MathPhysicController extends BaseController {
 
     @Autowired private MathPhysicEquationCalculator mathPhysicEquationCalculator;
 
@@ -63,7 +60,8 @@ public class MathPhysicController {
             double b1 = Double.parseDouble(tInterval.split(";")[1]);
             String[] boundCondit = boundConditions.split(";");
             SimpleGeometry simpleGeometry = new SimpleGeometry(a, b, a1, b1, boundCondit, h, precision);
-            double[][] solve = simpleGeometry.solve().toArray();
+            double[][] solve = simpleGeometry.solve();
+            prepareForDrawing(solve, xInterval, h, model);
             model.addAttribute("answer", toString(solve));
             return "answer";
         }
@@ -84,15 +82,15 @@ public class MathPhysicController {
             double[][] answer = this.mathPhysicEquationCalculator.parabolic(function, initCondition, boundConditions, xInterval, tInterval, hx, ht, weight);
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < answer.length - 1; i++) {
-                sb.append(new BigDecimal(answer[i][0]).setScale(5, RoundingMode.FLOOR).doubleValue());
+                sb.append(round(answer[i][0], 4));
                 for (int j = 1; j < answer[i].length; j++) {
-                    sb.append(" ").append(new BigDecimal(answer[i][j]).setScale(5, RoundingMode.FLOOR).doubleValue());
+                    sb.append(" ").append(round(answer[i][j], 4));
                 }
-                sb.append("\n");
+                sb.append("<br>");
             }
-            sb.append(new BigDecimal(answer[0][answer.length - 1]).setScale(5, RoundingMode.FLOOR).doubleValue());
-            for (int i = 1; i < answer[answer.length - 1].length; i++) {
-                sb.append(" ").append(new BigDecimal(answer[0][answer.length - 1]).setScale(5, RoundingMode.FLOOR).doubleValue());
+            sb.append(round(answer[answer.length - 1][0], 4));
+            for (int j = 1; j < answer[answer.length - 1].length; j++) {
+                sb.append(" ").append(round(answer[answer.length - 1][j], 4));
             }
             prepareForDrawing(answer, xInterval, hx, model);
             model.addAttribute("answer", sb);
@@ -114,9 +112,21 @@ public class MathPhysicController {
                              @RequestParam(value = "ht") Double ht,
                              Model model) {
         try {
-            Matrix matrix = this.mathPhysicEquationCalculator.hyperbolic(initConditions, boundConditions, xInterval, tInterval, hx, ht);
-            matrix.setPrecision(4);
-            model.addAttribute("answer", matrix);
+            double[][] answer = this.mathPhysicEquationCalculator.hyperbolic(initConditions, boundConditions, xInterval, tInterval, hx, ht);
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < answer.length - 1; i++) {
+                sb.append(round(answer[i][0], 4));
+                for (int j = 1; j < answer[i].length; j++) {
+                    sb.append(" ").append(round(answer[i][j], 4));
+                }
+                sb.append("<br>");
+            }
+            sb.append(round(answer[answer.length - 1][0], 4));
+            for (int j = 1; j < answer[answer.length - 1].length; j++) {
+                sb.append(" ").append(round(answer[answer.length - 1][j], 4));
+            }
+            prepareForDrawing(answer, xInterval, hx, model);
+            model.addAttribute("answer", sb);
             return "answer";
         } catch (ApiException exception) {
             model.addAttribute("error", exception.getMessage());
@@ -133,13 +143,14 @@ public class MathPhysicController {
         for (int i = 0; i < x.length; i++) {
             x[i] = a + i * h;
         }
-        model.addAttribute("x", Arrays.toString(x));
         StringBuilder sb = new StringBuilder();
         sb.append(Arrays.toString(answer[0]));
         for (int i = 1; i < answer.length; i++) {
             sb.append(";").append(Arrays.toString(answer[i]));
         }
-        model.addAttribute("yy", sb);
+        model.addAttribute("x", Arrays.toString(x))
+                .addAttribute("yy", sb)
+                .addAttribute("drawable", true);
     }
 
 }

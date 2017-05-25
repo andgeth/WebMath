@@ -1,5 +1,6 @@
 import by.vsu.core.mathphysiceq.HyperbolicEquation;
 import by.vsu.core.mathphysiceq.ParabolicEquation;
+import by.vsu.core.mathphysiceq.ellipticequation.SimpleGeometry;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -13,6 +14,18 @@ public class MathPhysicEquationTest {
     private double[] t = new double[] { 0, 0.5 };
     private double hx = 0.1;
     private double ht = 0.1;
+
+    @Test
+    public void elliptic() {
+        SimpleGeometry simpleGeometry = new SimpleGeometry(0,1,0,1,"0;50*x*(1-x);50*y*(1-(y^2));50*x*(1-x)".split(";"),0.2, 0.001);
+        double[][] ans = simpleGeometry.solve();
+        for (double[] arr : ans) {
+            for (double el : arr) {
+                System.out.print(el + " ");
+            }
+            System.out.println();
+        }
+    }
 
     @Test
     public void hyperbolic() {

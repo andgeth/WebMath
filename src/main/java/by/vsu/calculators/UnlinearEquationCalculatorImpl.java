@@ -4,6 +4,7 @@ import by.vsu.core.analyzer.algebra.VariableValuePair;
 import by.vsu.core.unlinear.*;
 import by.vsu.exceptions.IllegalInitialApproximationException;
 import by.vsu.exceptions.IllegalPointsIntervalException;
+import by.vsu.exceptions.SolutionNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,7 +21,12 @@ public class UnlinearEquationCalculatorImpl implements UnlinearEquationCalculato
         double a = Double.valueOf(points[0]);
         double b = Double.valueOf(points[1]);
         if (a < b) {
-            return new Dichotomy(function, a, b).resolve(e);
+            double answer = new Dichotomy(function, a, b).resolve(e);
+            if (!Double.isNaN(answer)) {
+                return answer;
+            } else {
+                throw new SolutionNotFoundException();
+            }
         } else {
             throw new IllegalPointsIntervalException();
         }
@@ -28,12 +34,22 @@ public class UnlinearEquationCalculatorImpl implements UnlinearEquationCalculato
 
     @Override
     public double newton(String function, String x0, double e) {
-        return new Newton(function, new VariableValuePair(x0)).resolve(e);
+        double answer = new Newton(function, new VariableValuePair(x0)).resolve(e);
+        if (!Double.isNaN(answer)) {
+            return answer;
+        } else {
+            throw new SolutionNotFoundException();
+        }
     }
 
     @Override
     public double secant(String function, String x1, String x2, double e) {
-        return new Secant(function, new VariableValuePair(x1).getValue(), new VariableValuePair(x2).getValue()).resolve(e);
+        double answer = new Secant(function, new VariableValuePair(x1).getValue(), new VariableValuePair(x2).getValue()).resolve(e);
+        if (!Double.isNaN(answer)) {
+            return answer;
+        } else {
+            throw new SolutionNotFoundException();
+        }
     }
 
     @Override
@@ -44,7 +60,12 @@ public class UnlinearEquationCalculatorImpl implements UnlinearEquationCalculato
         VariableValuePair pair = new VariableValuePair(x0);
         if (pair.getValue() >= a && pair.getValue() <= b) {
             if (a < b) {
-                return new SimpleIteration(function, pair, a, b).resolve(e);
+                double answer = new SimpleIteration(function, pair, a, b).resolve(e);
+                if (!Double.isNaN(answer)) {
+                    return answer;
+                } else {
+                    throw new SolutionNotFoundException();
+                }
             } else {
                 throw new IllegalPointsIntervalException();
             }

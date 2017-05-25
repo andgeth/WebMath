@@ -7,45 +7,24 @@
 <html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>WebNATS</title>
+        <title>WebMath</title>
 
-        <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/bootstrap-theme.min.css"/>">
-        <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/bootstrap.min.css"/>">
-        <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/cover.css"/>">
-        <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/main.css"/>">
-        <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/TG.css"/>">
-        <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/normalize.css"/>">
-        <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/pushy.css"/>">
-        <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/style.css"/>">
-
-        <style type="text/css">
-            .nav>li>a, .nav>li>a:focus, .nav>li>a:hover {
-                background-color: transparent;
-                text-decoration: underline;
-                text-shadow: none;
-                font-size: 18px;
-            }
-
-            .nav>li>a {
-                background-color: transparent;
-                text-decoration: none;
-                text-shadow: none;
-                font-size: 14px;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/bootstrap.min.css" />">
+        <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/TG.css" />">
+        <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/pushy.css" />">
+        <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/style.css" />">
     </head>
 
-    <body style="background: url(${contextPath}/resources/css/background.jpg) no-repeat">
+    <body style="background: url(${contextPath}/resources/images/background.jpg) no-repeat">
         <div class="site-wrapper">
             <div class="site-wrapper-inner">
                 <div class="content" style="height: 90%;">
                     <div class="container-fluid">
-                        <div id="logo" class="row" style="background: url(${contextPath}/resources/css/logo.jpg) no-repeat;">
+                        <div id="logo" class="row" style="background: url(${contextPath}/resources/images/logo.jpg) no-repeat;">
                             <ul class="nav navbar-nav pull-right">
                                 <li><a href="index">Главная</a></li>
                                 <li><a href="theory">Теория</a></li>
                                 <li><a href="help">Справка</a></li>
-                                <li><a href="about">О нас</a></li>
                             </ul>
                         </div>
                     </div>
@@ -65,7 +44,6 @@
                                             </div>
                                             <span class="arrow">&#9658;</span>
                                         </li>
-
                                         <li><span class="drop-down">Системы нелинейных уравнений</span>
                                             <div class="drop-menu-main-sub">
                                                 <span class="title"></span>
@@ -84,7 +62,7 @@
                                             </div>
                                             <span class="arrow">&#9658;</span>
                                         </li>
-                                        <li><span class="drop-down">Системы дифференциальные уравнения</span>
+                                        <li><span class="drop-down">Системы дифференциальных уравнений</span>
                                             <div class="drop-menu-main-sub">
                                                 <span class="title"></span>
                                                 <a href="euler-system">Метод Эйлера</a>
@@ -144,11 +122,11 @@
                     <hr><footer>VSU 2017</footer>
                 </div>
             </div>
-
         </div>
 
-        <script language="javascript" type="text/javascript" src="${contextPath}/resources/js/jquery.js"></script>
+        <script language="javascript" type="text/javascript" src="${contextPath}/resources/js/jquery-3.2.1.min.js"></script>
         <script language="javascript" type="text/javascript" src="${contextPath}/resources/js/jquery.flot.js"></script>
+        <script language="javascript" type="text/javascript" src="${contextPath}/resources/js/bootstrap.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
                 function hideallDropdowns() {
@@ -157,13 +135,12 @@
                     $(".dropped .drop-menu-main-sub .title").unbind("click");
                 }
 
-                function showDropdown(el)
-                {
+                function showDropdown(el) {
                     var el_li = $(el).parent().addClass('dropped');
                     el_li.find('.drop-menu-main-sub').show();
                 }
 
-                $(".drop-down").click(function(){
+                $(".drop-down").click(function() {
                     showDropdown(this);
                 });
 
@@ -172,6 +149,5 @@
                 });
             });
         </script>
-
     </body>
 </html>

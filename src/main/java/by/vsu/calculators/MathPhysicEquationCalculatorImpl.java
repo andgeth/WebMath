@@ -2,14 +2,13 @@ package by.vsu.calculators;
 
 import by.vsu.core.mathphysiceq.HyperbolicEquation;
 import by.vsu.core.mathphysiceq.ParabolicEquation;
-import by.vsu.core.math.objects.Matrix;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MathPhysicEquationCalculatorImpl implements MathPhysicEquationCalculator {
 
     @Override
-    public Matrix hyperbolic(String initConditions, String boundConditions, String xInterval, String tInterval, Double hx,
+    public double[][] hyperbolic(String initConditions, String boundConditions, String xInterval, String tInterval, Double hx,
                              Double ht) {
         String[] x = xInterval.split(";");
         String[] t = tInterval.split(";");

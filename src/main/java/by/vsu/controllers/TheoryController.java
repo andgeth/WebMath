@@ -1,238 +1,134 @@
 package by.vsu.controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class TheoryController
-{
+public class TheoryController extends BaseController {
 
-    @RequestMapping("/theory")
-    public String theory()
-    {
+    @GetMapping("/theory")
+    public String theory() {
         return "theory";
     }
 
-    @RequestMapping("/theoryNewton")
-    public String theoryNewton(Model model)
-    {
-        model.addAttribute("index", false);
-        model.addAttribute("theory", true);
-        model.addAttribute("about", false);
-        return "theoryNewton";
+    @GetMapping("/theory-newton")
+    public String theoryNewton() {
+        return "theory-newton";
     }
 
-    @RequestMapping("/theoryChord")
-    public String theoryChord(Model model)
-    {
-        model.addAttribute("index", false);
-        model.addAttribute("theory", true);
-        model.addAttribute("about", false);
-        return "theoryChord";
+    @GetMapping("/theory-chord")
+    public String theoryChord() {
+        return "theory-chord";
     }
 
-    @RequestMapping("/theorySimpleiteration")
-    public String theorySimpleiteration(Model model)
-    {
-        model.addAttribute("index", false);
-        model.addAttribute("theory", true);
-        model.addAttribute("about", false);
-        return "theorySimpleiteration";
+    @GetMapping("/theory-simple-iteration")
+    public String theorySimpleIteration() {
+        return "theory-simple-iteration";
     }
 
-    @RequestMapping("/theoryBetterEuler")
-    public String theoryBetterEuler(Model model)
-    {
-        model.addAttribute("index", false);
-        model.addAttribute("theory", true);
-        model.addAttribute("about", false);
-        return "theoryBetterEuler";
+    @GetMapping("/theory-better-euler")
+    public String theoryBetterEuler() {
+        return "theory-better-euler";
     }
 
-    @RequestMapping("/theoryDichotomy")
-    public String theoryDichotomy()
-    {
-        return "theoryDichotomy";
+    @GetMapping("/theory-dichotomy")
+    public String theoryDichotomy() {
+        return "theory-dichotomy";
     }
 
-    @RequestMapping("/theorySystemSimpleIteration")
-    public String theorySystemSimpleIteration(Model model)
-    {
-        model.addAttribute("index", false);
-        model.addAttribute("theory", true);
-        model.addAttribute("about", false);
-        return "theorySystemSimpleIteration";
+    @GetMapping("/theory-system-simple-iteration")
+    public String theorySystemSimpleIteration() {
+        return "theory-system-simple-iteration";
     }
 
-    @RequestMapping("/theorySystemNewton")
-    public String theorySystemNewton(Model model)
-    {
-        model.addAttribute("index", false);
-        model.addAttribute("theory", true);
-        model.addAttribute("about", false);
-        return "theorySystemNewton";
+    @GetMapping("/theory-system-newton")
+    public String theorySystemNewton() {
+        return "theory-system-newton";
     }
 
-    @RequestMapping("/theoryEuler")
-    public String theoryEuler(Model model)
-    {
-        model.addAttribute("index", false);
-        model.addAttribute("theory", true);
-        model.addAttribute("about", false);
-        return "theoryEuler";
+    @GetMapping("/theory-euler")
+    public String theoryEuler() {
+        return "theory-euler";
     }
 
-    @RequestMapping("/theoryEulerCochi")
-    public String theoryEulerCochi(Model model)
-    {
-        model.addAttribute("index", false);
-        model.addAttribute("theory", true);
-        model.addAttribute("about", false);
-        return "theoryEulerCochi";
+    @GetMapping("/theory-euler-cochi")
+    public String theoryEulerCochi() {
+        return "theory-euler-cochi";
     }
 
-    @RequestMapping("/theoryEulerSystem")
-    public String theoryEulerSystem(Model model)
-    {
-        model.addAttribute("index", false);
-        model.addAttribute("theory", true);
-        model.addAttribute("about", false);
-        return "theoryEulerSystem";
+    @GetMapping("/theory-euler-system")
+    public String theoryEulerSystem() {
+        return "theory-euler-system";
     }
 
-    @RequestMapping("/theoryNet")
-    public String theoryNet(Model model)
-    {
-        model.addAttribute("index", false);
-        model.addAttribute("theory", true);
-        model.addAttribute("about", false);
-        return "theoryNet";
+    @GetMapping("/theory-net")
+    public String theoryNet() {
+        return "theory-net";
     }
 
-    @RequestMapping("/theoryRunge")
-    public String theoryRunge(Model model)
-    {
-        model.addAttribute("index", false);
-        model.addAttribute("theory", true);
-        model.addAttribute("about", false);
-        return "theoryRunge";
+    @GetMapping("/theory-runge")
+    public String theoryRunge() {
+        return "theory-runge";
     }
 
-    @RequestMapping("/theoryRungeSystem")
-    public String theoryRungeSystem(Model model)
-    {
-        model.addAttribute("index", false);
-        model.addAttribute("theory", true);
-        model.addAttribute("about", false);
-        return "theoryRungeSystem";
+    @GetMapping("/theory-runge-system")
+    public String theoryRungeSystem() {
+        return "theory-runge-system";
     }
 
-    @RequestMapping("/theorySecant")
-    public String theorySecant(Model model)
-    {
-        model.addAttribute("index", false);
-        model.addAttribute("theory", true);
-        model.addAttribute("about", false);
-        return "theorySecant";
+    @GetMapping("/theory-secant")
+    public String theorySecant() {
+        return "theory-secant";
     }
 
-    @RequestMapping("/theoryShoot")
-    public String theoryShoot(Model model)
-    {
-        model.addAttribute("index", false);
-        model.addAttribute("theory", true);
-        model.addAttribute("about", false);
-        return "theoryShoot";
+    @GetMapping("/theory-shoot")
+    public String theoryShoot() {
+        return "theory-shoot";
     }
 
-    @RequestMapping("/theoryBorder")
-    public String theoryBorder(Model model)
-    {
-        model.addAttribute("index", false);
-        model.addAttribute("theory", true);
-        model.addAttribute("about", false);
-        return "theoryBorder";
+    @GetMapping("/theory-border")
+    public String theoryBorder() {
+        return "theory-border";
     }
 
-    @RequestMapping("/theoryDiff")
-    public String theoryDiff(Model model)
-    {
-        model.addAttribute("index", false);
-        model.addAttribute("theory", true);
-        model.addAttribute("about", false);
-        return "theoryDiff";
+    @GetMapping("/theory-differential")
+    public String theoryDifferential() {
+        return "theory-differential";
     }
 
-    @RequestMapping("/theoryDiffSystem")
-    public String theoryDiffSystem(Model model)
-    {
-        model.addAttribute("index", false);
-        model.addAttribute("theory", true);
-        model.addAttribute("about", false);
-        return "theoryDiffSystem";
+    @GetMapping("/theory-diff-system")
+    public String theoryDiffSystem() {
+        return "theory-diff-system";
     }
 
-    @RequestMapping("/theoryUnlinear")
-    public String theoryUnlinear(Model model)
-    {
-        model.addAttribute("index", false);
-        model.addAttribute("theory", true);
-        model.addAttribute("about", false);
-        return "theoryUnlinear";
+    @GetMapping("/theory-rectangles")
+    public String theoryRectangles() {
+        return "theory-rectangles";
     }
 
-    @RequestMapping("/theoryRectanglesMethod")
-    public String theoryRectanglesMethod(Model model)
-    {
-        model.addAttribute("index", false);
-        model.addAttribute("theory", true);
-        model.addAttribute("about", false);
-        return "theoryRectanglesMethod";
+    @GetMapping("/theory-trapeze")
+    public String theoryTrapeze() {
+        return "theory-trapeze";
     }
 
-    @RequestMapping("/theoryTrapezeMethod")
-    public String theoryTrapezeMethod(Model model)
-    {
-        model.addAttribute("index", false);
-        model.addAttribute("theory", true);
-        model.addAttribute("about", false);
-        return "theoryTrapezeMethod";
+    @GetMapping("/theory-simpson")
+    public String theorySimpson() {
+        return "theory-simpson";
     }
 
-    @RequestMapping("/theorySimpsonMethod")
-    public String theorySimpsonMethod(Model model)
-    {
-        model.addAttribute("index", false);
-        model.addAttribute("theory", true);
-        model.addAttribute("about", false);
-        return "theorySimpsonMethod";
+    @GetMapping("/theory-poly-lagrange")
+    public String theoryPolyLagrange() {
+        return "theory-poly-lagrange";
     }
 
-    @RequestMapping("/theoryPolyLagrange")
-    public String theoryPolyLagrange(Model model)
-    {
-        model.addAttribute("index", false);
-        model.addAttribute("theory", true);
-        model.addAttribute("about", false);
-        return "theoryPolyLagrange";
+    @GetMapping("/theory-poly-newton")
+    public String theoryPolyNewton() {
+        return "theory-poly-newton";
     }
 
-    @RequestMapping("/theoryPolyNewton")
-    public String theoryPolyNewton(Model model)
-    {
-        model.addAttribute("index", false);
-        model.addAttribute("theory", true);
-        model.addAttribute("about", false);
-        return "theoryPolyNewton";
+    @GetMapping("/theory-spline")
+    public String theorySpline() {
+        return "theory-spline";
     }
 
-    @RequestMapping("/theorySpline")
-    public String theorySpline(Model model)
-    {
-        model.addAttribute("index", false);
-        model.addAttribute("theory", true);
-        model.addAttribute("about", false);
-        return "theorySpline";
-    }
 }

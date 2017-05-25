@@ -1,13 +1,10 @@
-.list-group-item {
-    background-color: transparent !important;
-}
-
-#logo {
-    height: 102px;
-}
-
 body {
     color: #ffffff;
+    text-align: center;
+}
+
+body a {
+    color: inherit;
 }
 
 input {
@@ -18,5 +15,43 @@ textarea {
     background-color: #212121;
     border: none;
     opacity: 1;
-
 }
+
+.table>tbody>tr>td {
+    border: none;
+}
+
+.site-wrapper {
+    display: table;
+    width: 100%;
+    height: 100vh;
+}
+
+.site-wrapper-inner {
+    vertical-align: top;
+    background-color: rgba(43, 43, 43, 0.8);
+    width: 70%;
+    margin-left: 15%;
+    height: 100%;
+}
+
+.nav > li > a:hover {
+    background-color: inherit;
+}
+
+.workspace {
+    width: 90%;
+    margin-top: 5%;
+}
+
+#logo {
+    height: 102px;
+}
+
+/*#inputs {*/
+    /*margin-bottom: 3%;*/
+/*}*/
+
+/*#inputs input[type=text] {*/
+    /*margin-bottom: 2%;*/
+/*}*/

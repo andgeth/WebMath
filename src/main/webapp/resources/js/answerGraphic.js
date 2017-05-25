@@ -21,29 +21,37 @@ $(function () {
     }
 
     var answer = extractFromJavaArray($('#answer').html());
-    // var answerVal = document.getElementById('answerVal').value;
+    var xAnswer = $('#xAnswer').val();
+    var yAnswer = $('#yAnswer').val();
     var d1 = [],
         d2 = [],
         data = [];
     var xValues = extractFromJavaArray($('#x').val()),
         funcValues = extractFromJavaArray($('#y').val()),
+        funcPointValues = extractFromJavaArray($('#yPoints').val()),
         func1Values = extractFromJavaArray($('#y1').val()),
         functions = extractFromMultiJavaArray($('#yy').val());
-    // var coordinates = answerVal === undefined ? answer.split(", ") : [+answer, +answerVal];
     var i;
     var n = xValues.length;
-    var ymax = +funcValues[0],
-        ymin = +funcValues[0];
+    var ymax, ymin;
+    var xmax = Math.max.apply(null, xValues),
+        xmin = Math.min.apply(null, xValues);
 
     if (functions !== '') {
+        ymax = 0;
+        ymin = 0;
         for (i = 0; i < functions.length; i++) {
             var temp = [];
             for (var j = 0; j < functions[i].length; j++) {
-                temp.push([+xValues[j], functions[i][j]])
+                temp.push([+xValues[j], functions[i][j]]);
+                ymax = +functions[i][j] > ymax ? +functions[i][j] : ymax;
+                ymin = +functions[i][j] < ymin ? +functions[i][j] : ymin;
             }
             data.push({data: temp, lines: {show: true}});
         }
     } else if (func1Values !== '') {
+        ymax = +funcValues[0];
+        ymin = +funcValues[0];
         for (i = 0; i < n; i++) {
             d1.push([+xValues[i], +funcValues[i]]);
             d2.push([+xValues[i], +func1Values[i]]);
@@ -57,27 +65,42 @@ $(function () {
             })();
         }
         data.push({data: d1, lines: {show: true}}, {data: d2, lines: {show: true}});
-    } else {
+    } else if (funcPointValues !== '') {
+        ymax = +funcPointValues[0];
+        ymin = +funcPointValues[0];
         for (i = 0; i < n; i++) {
-            d1.push([+xValues[i], +(funcValues[i])]);
-            if (+funcValues[i] > ymax) {
-                ymax = +funcValues[i];
+            d1.push([+xValues[i], +funcPointValues[i]]);
+            if (+funcPointValues[i] > ymax) {
+                ymax = +funcPointValues[i];
+            } else if (+funcPointValues[i] < ymin) {
+                ymin = +funcPointValues[i];
             }
         }
-        data.push({data: d1, lines: {show: true}});
+        data.push({data: d1, points: {show: true, radius: 4}});
+    } else {
+        ymax = +funcValues[0];
+        ymin = +funcValues[0];
+        for (i = 0; i < n; i++) {
+            d1.push([+xValues[i], +funcValues[i]]);
+            if (+funcValues[i] > ymax) {
+                ymax = +funcValues[i];
+            } else if (+funcValues[i] < ymin) {
+                ymin = +funcValues[i];
+            }
+        }
+        data.push({data: d1, lines: {show: true}}, {data: [[+xAnswer, +yAnswer]], points: {show: true, radius: 4}});
     }
-    // d3.push([+answer[0], +answer[1]]);
 
     var options = {
         yaxis: {
             show: true,
-            max: 2,
-            min: -1
+            max: ymax,
+            min: ymin
         },
         xaxis: {
             show: true,
-            max: -1,
-            min: -1.5
+            max: xmax,
+            min: xmin
         }
     };
 

@@ -1,7 +1,6 @@
 package by.vsu.core.mathphysiceq;
 
 import by.vsu.core.analyzer.AlgebraicFunction;
-import by.vsu.core.math.objects.Matrix;
 
 public class HyperbolicEquation extends AbstractMathPhysicEquation {
 
@@ -29,7 +28,7 @@ public class HyperbolicEquation extends AbstractMathPhysicEquation {
         }
     }
 
-    private Matrix clearScheme() {
+    private double[][] clearScheme() {
         checkStabilityCondition(t / h, 1);
         int nX = (int) ((b - a) / h) + 1;
         int nT = (int) ((b1 - a1) / t) + 1;
@@ -44,10 +43,10 @@ public class HyperbolicEquation extends AbstractMathPhysicEquation {
                 res[i + 1][j] = 2 * res[i][j] - res[i - 1][j] + gamma * ((res[i][j + 1] - 2 * res[i][j] + res[i][j - 1]));
             }
         }
-        return new Matrix(res);
+        return res;
     }
 
-    public Matrix solve() {
+    public double[][] solve() {
         return clearScheme();
     }
 

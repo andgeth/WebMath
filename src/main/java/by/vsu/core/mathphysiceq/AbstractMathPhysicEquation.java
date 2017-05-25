@@ -23,10 +23,10 @@ class AbstractMathPhysicEquation {
 
     void fillBoundaryConditions(double[][] res, int nX, int nT) {
         for (int i = 0; i < nT; i++) {
-            boundaryConditions[0].insertValue(a1 + t * i);
-            boundaryConditions[1].insertValue(a1 + t * i);
-            res[i][0] = boundaryConditions[0].getValue();
-            res[i][nX - 1] = boundaryConditions[1].getValue();
+            this.boundaryConditions[0].insertValue(this.a1 + this.t * i);
+            this.boundaryConditions[1].insertValue(this.a1 + this.t * i);
+            res[i][0] = this.boundaryConditions[0].getValue();
+            res[i][nX - 1] = this.boundaryConditions[1].getValue();
         }
     }
 

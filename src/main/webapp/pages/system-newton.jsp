@@ -4,39 +4,40 @@
 
 <i:html>
     <h1>Метод Ньютона</h1>
-    <form action="<c:url value="/system-newton" />" method="post">
-        <table class="table">
-            <tr>
-                <td>Введите функции в виде f1(x,y);f2(x,y):</td>
-                <td><input type="text" id="functions" name="functions" title="Например: x+y^2;x-2*z" autofocus required></td>
-            </tr>
-            <tr>
-                <td>Интервал:</td>
-                <td><i:interval /></td>
-            </tr>
-            <tr>
-                <td>Начальное приближение x:</td>
-                <td><i:initValue id="x0" name="x0" /></td>
-            </tr>
-            <tr>
-                <td>Начальное приближение y:</td>
-                <td><i:initValue id="y0" name="y0" /></td>
-            </tr>
-            <tr>
-                <td>Точность:</td>
-                <td><i:precision /></td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="submit" name="submit" value="Решить"
-                </td>
-            </tr>
+    <div class="workspace container-fluid">
+        <form action="<c:url value="/system-newton" />" method="post">
+            <fieldset id="inputs">
+                <div class="row form-group">
+                    <div class="col-sm-4"><label for="functions">Введите функции в виде f1(x,y);f2(x,y):</label></div>
+                    <div class="col-sm-8"><input type="text" id="functions" name="functions" class="form-control" title="Например: x+y^2;x-2*z" autofocus required></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4"><label for="interval">Интервал:</label></div>
+                    <div class="col-sm-8"><i:interval /></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4"><label for="x0">Начальное приближение x:</label></div>
+                    <div class="col-sm-8"><i:initValue id="x0" name="x0" /></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4"><label for="y0">Начальное приближение y:</label></div>
+                    <div class="col-sm-8"><i:initValue id="y0" name="y0" /></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4"><label for="e">Точность:</label></div>
+                    <div class="col-sm-8"><i:precision /></div>
+                </div>
+            </fieldset>
+            <fieldset id="buttons">
+                <div class="row form-group">
+                    <div class="col-sm-5">
+                        <input type="submit" class="btn btn-default" value="Решить">
+                    </div>
+                </div>
+            </fieldset>
             <c:if test="${error != null}">
-                <tr>
-                    <td>Ошибка:<br></td>
-                    <td>${error}</td>
-                </tr>
+                Ошибка: ${error}
             </c:if>
-        </table>
-    </form>
+        </form>
+    </div>
 </i:html>

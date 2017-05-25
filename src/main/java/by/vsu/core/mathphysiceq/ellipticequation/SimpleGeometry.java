@@ -22,21 +22,21 @@ public class SimpleGeometry {
         this.precision = precision;
     }
 
-    public Matrix solve() {
+    public double[][] solve() {
         int n1 = (int) ((b1 - a1) / h) + 1;
         int n2 = (int) ((b2 - a2) / h) + 1;
         Matrix res0 = new Matrix(n1, n2);
         Matrix res1;
         for (int i = 0; i < n1; i++) {
             double val = h * i;
-            boundaryConditions[0].insertValue(val);
-            res0.setElement(i, 0, boundaryConditions[0].getValue());
-            boundaryConditions[1].insertValue(val);
-            res0.setElement(n1 - 1, i, boundaryConditions[1].getValue());
-            boundaryConditions[2].insertValue(val);
-            res0.setElement(i, n2 - 1, boundaryConditions[2].getValue());
-            boundaryConditions[3].insertValue(val);
-            res0.setElement(0, i, boundaryConditions[3].getValue());
+            this.boundaryConditions[0].insertValue(val);
+            res0.setElement(i, 0, this.boundaryConditions[0].getValue());
+            this.boundaryConditions[1].insertValue(val);
+            res0.setElement(n1 - 1, i, this.boundaryConditions[1].getValue());
+            this.boundaryConditions[2].insertValue(val);
+            res0.setElement(i, n2 - 1, this.boundaryConditions[2].getValue());
+            this.boundaryConditions[3].insertValue(val);
+            res0.setElement(0, i, this.boundaryConditions[3].getValue());
         }
         res1 = new Matrix(res0);
         while (true) {
@@ -46,8 +46,8 @@ public class SimpleGeometry {
                 }
             }
             double d = Matrix.Difference(res1, res0).cubicNorm();
-            if (d <= precision) {
-                return res1;
+            if (d <= this.precision) {
+                return res1.toArray();
             }
             res1 = new Matrix(res0);
         }

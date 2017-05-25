@@ -1,33 +1,61 @@
 $(function () {
-    var interval = document.getElementById('interval').value.split(';');
-    var func1Val = document.getElementById('func1val').value.split(';');
-    var func2Val = document.getElementById('func2val').value.split(';');
+    function extractFromJavaArray(array) {
+        if (array === '' || array === null) {
+            return array;
+        }
+        if (array[0] === '[') {
+            array = array.substring(1, array.length - 1);
+        }
+        array = array.split(", ");
+        if (array[0][0] === 'x' && array[1][0] === 'y') {
+            array[0] = +(array[0].split('=')[1]);
+            array[1] = +(array[1].split('=')[1]);
+        }
+        return array;
+    }
 
-    delete func1Val[func1Val.length - 1];
+    var func1Val = extractFromJavaArray($('#func1val').val()),
+        func2Val = extractFromJavaArray($('#func2val').val());
+    var xValues = extractFromJavaArray($('#xValues').val()),
+        yValues = extractFromJavaArray($('#yValues').val());
 
-    var x = [];
     var d1 = [];
-    var n = (Number(interval[1]) - Number(interval[0])) / 0.5 + 1;
-    for (var i = 0; i < n; i++) {
-        x.push(Number(interval[0]) + 0.5 * i);
-        d1.push([x[i], func1Val[i]]);
+    var i;
+    var xmax = Math.max.apply(null, xValues);
+    var xmin = Math.min.apply(null, xValues);
+    var ymax = yValues !== '' ? Math.max.apply(null, yValues) : Math.max.apply(null, func1Val);
+    var ymin = yValues !== '' ? Math.min.apply(null, yValues) : Math.min.apply(null, func1Val);
+
+    for (i = 0; i < xValues.length; i++) {
+        d1.push([xValues[i], func1Val[i]]);
     }
     if (func2Val !== undefined) {
-        delete func2Val[func1Val.length - 1];
         var d2 = [];
-        for (var i = 0; i < n; i++) {
-            d2.push([func2Val[i], x[i]]);
+        for (i = 0; i < yValues.length; i++) {
+            d2.push([func2Val[i], yValues[i]]);
         }
     }
-    $.plot($("#placeholder"),
-        [
-            {
-                data: d1,
-                lines: {show: true}
-            },
-            {
-                data: d2,
-                lines: {show: true}
-            }
-        ]);
+
+    var options = {
+        yaxis: {
+            show: true,
+            max: ymax,
+            min: ymin
+        },
+        xaxis: {
+            show: true,
+            max: xmax,
+            min: xmin
+        }
+    };
+
+    $.plot($("#placeholder"), [
+        {
+            data: d1,
+            lines: {show: true}
+        },
+        {
+            data: d2,
+            lines: {show: true}
+        }], options);
 });

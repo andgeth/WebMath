@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Arrays;
 
 @Controller
-public class BoundaryController {
+public class BoundaryController extends BaseController {
 
     @Autowired private BoundaryTaskCalculator boundaryTaskCalculator;
 
@@ -91,8 +91,9 @@ public class BoundaryController {
             y[i] = answer[i];
             x[i] = a + h * i;
         }
-        model.addAttribute("x", Arrays.toString(x));
-        model.addAttribute("y", Arrays.toString(y));
+        model.addAttribute("x", Arrays.toString(x))
+                .addAttribute("y", Arrays.toString(y))
+                .addAttribute("drawable", true);
     }
 
 }

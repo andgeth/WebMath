@@ -4,40 +4,44 @@
 
 <i:html>
     <h1>Многочлен Лагранжа</h1>
-    <form action="<c:url value="/poly-lagrange" />" method="post">
-        <table class="table">
-            <tr>
-                <td><label for="interval">Интервал:</label></td>
-                <td><input type="text" id="interval" name="interval" required></td>
-            </tr>
-            <tr>
-                <td><label for="xValues">Значения x:</label></td>
-                <td><input type="text" pattern="^-?[0-9]+(.[0-9]+)?(,-?[0-9]+(.[0-9]+)?)*$" id="xValues" name="xValues" required></td>
-            </tr>
-            <tr>
-                <td><label for="yValues">Значения y:</label></td>
-                <td><input type="text" pattern="^-?[0-9]+(.[0-9]+)?(,-?[0-9]+(.[0-9]+)?)*$" id="yValues" name="yValues" required></td>
-            </tr>
-            <tr>
-                <td><label for="n">n:</label></td>
-                <td><input type="text" pattern="^([-]?)([0-9]+)([.]?)([0-9]*)$" id="n" name="n" required></td>
-            </tr>
-            <tr>
-                <td><label for="points">Точки:</label></td>
-                <td><input type="text" id="points" name="points" required></td>
-            </tr>
-            <tr>
-                <td><label for="x">x:</label></td>
-                <td><input type="text" pattern="^([-]?)([0-9]+)([.]?)([0-9]*)$" id="x" name="x" required></td>
-            </tr>
-            <tr>
-                <td><input type="submit" name="submit" value="Найти значение"></td>
-            </tr>
+    <div class="workspace container-fluid">
+        <form action="<c:url value="/poly-lagrange" />" method="post">
+            <fieldset id="inputs">
+                <div class="row form-group">
+                    <div class="col-sm-4"><label for="interval">Интервал:</label></div>
+                    <div class="col-sm-8"><input type="text" id="interval" name="interval" class="form-control" required></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4"><label for="xValues">Значения x:</label></div>
+                    <div class="col-sm-8"><input type="text" pattern="^-?[0-9]+(.[0-9]+)?(,-?[0-9]+(.[0-9]+)?)*$" id="xValues" name="xValues" class="form-control" required></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4"><label for="yValues">Значения y:</label></div>
+                    <div class="col-sm-8"><input type="text" pattern="^-?[0-9]+(.[0-9]+)?(,-?[0-9]+(.[0-9]+)?)*$" id="yValues" name="yValues" class="form-control" required></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4"><label for="n">n:</label></div>
+                    <div class="col-sm-8"><input type="text" pattern="^([-]?)([0-9]+)([.]?)([0-9]*)$" id="n" name="n" class="form-control" required></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4"><label for="points">Точки:</label></div>
+                    <div class="col-sm-8"><input type="text" id="points" name="points" class="form-control" required></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4"><label for="x">x:</label></div>
+                    <div class="col-sm-8"><input type="text" pattern="^([-]?)([0-9]+)([.]?)([0-9]*)$" id="x" name="x" class="form-control" required></div>
+                </div>
+            </fieldset>
+            <fieldset id="buttons">
+                <div class="row form-group">
+                    <div class="col-sm-5">
+                        <input type="submit" class="btn btn-default" value="Решить">
+                    </div>
+                </div>
+            </fieldset>
             <c:if test="${error != null}">
-                <tr>
-                    <td>Ошибка: ${error}</td>
-                </tr>
+                Ошибка: ${error}
             </c:if>
-        </table>
-    </form>
+        </form>
+    </div>
 </i:html>

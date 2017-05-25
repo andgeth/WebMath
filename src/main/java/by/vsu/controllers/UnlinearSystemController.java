@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class UnlinearSystemController {
+public class UnlinearSystemController extends BaseController {
 
     private @Autowired UnlinearSystemCalculator unlinearSystemCalculator;
 
@@ -33,7 +33,8 @@ public class UnlinearSystemController {
                                Model model) {
         try {
             double[] answer = this.unlinearSystemCalculator.newton(functions, interval, x0, y0, e);
-            model.addAttribute("answer", "x = " + answer[0] + ", y = " + answer[1]);
+            model.addAttribute("answer", "x = " + answer[0] + ", y = " + answer[1])
+                    .addAttribute("drawable", false);
             return "answer";
         } catch (ApiException exception) {
             model.addAttribute("error", exception.getMessage());
@@ -52,7 +53,8 @@ public class UnlinearSystemController {
                                         Model model) {
         try {
             double[] answer = this.unlinearSystemCalculator.simpleIteration(functions, interval, x0, y0, e);
-            model.addAttribute("answer", "x = " + answer[0] + ", y = " + answer[1]);
+            model.addAttribute("answer", "x = " + answer[0] + ", y = " + answer[1])
+                    .addAttribute("drawable", false);
             return "answer";
         } catch (ApiException exception) {
             model.addAttribute("error", exception.getMessage());

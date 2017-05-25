@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Arrays;
 
 @Controller
-public class InterpolationController {
+public class InterpolationController extends BaseController {
 
     @Autowired private InterpolationCalculator interpolationCalculator;
 
@@ -39,7 +39,8 @@ public class InterpolationController {
                            @RequestParam(value = "x") Double x,
                            Model model) {
         try {
-            model.addAttribute("answer", this.interpolationCalculator.lagrange(xValues, yValues, strPoints, x));
+            model.addAttribute("answer", this.interpolationCalculator.lagrange(xValues, yValues, strPoints, x))
+                    .addAttribute("drawable", false);
             return "answer";
         } catch (ApiException exception) {
             model.addAttribute("error", exception.getMessage());
@@ -56,7 +57,9 @@ public class InterpolationController {
                          @RequestParam(value = "x") Double x,
                          Model model) {
         try {
-            model.addAttribute("answer", this.interpolationCalculator.newton(xValues, yValues, strPoints, x));
+
+            model.addAttribute("answer", this.interpolationCalculator.newton(xValues, yValues, strPoints, x))
+                    .addAttribute("drawable", false);
             return "answer";
         } catch (ApiException exception) {
             model.addAttribute("error", exception.getMessage());
@@ -73,8 +76,8 @@ public class InterpolationController {
                          Model model) {
         try {
             Spline spline = this.interpolationCalculator.spline(xValues, yValues, x);
+            prepareForDrawing(spline, x, xValues, model);
             model.addAttribute("answer", spline.getValue(x));
-            prepareForDrawing(spline, xValues, model);
             return "answer";
         } catch (ApiException exception) {
             model.addAttribute("error", exception.getMessage());
@@ -84,20 +87,24 @@ public class InterpolationController {
         return "spline";
     }
 
-    private void prepareForDrawing(Spline spline, String xValues, Model model) {
+    private void prepareForDrawing(Spline spline, double xAnswer, String xValues, Model model) {
         String[] tmp_x = xValues.split(",");
         double a = Double.valueOf(tmp_x[0]);
         double b = Double.valueOf(tmp_x[tmp_x.length-1]);
-        double h = (b - a) / 25000;
+        double h = (b - a) / 100;
         int n = (int) ((b - a) / h) + 1;
-        double[] x = new double[n];
-        double[] y = new double[n];
+        double[] xArray = new double[n];
+        double[] yArray = new double[n];
         for (int i = 0; i < n; i++) {
-            y[i] = spline.getValue(a + h * i);
-            x[i] = a + h * i;
+            yArray[i] = spline.getValue(a + h * i);
+            xArray[i] = a + h * i;
         }
-        model.addAttribute("x", Arrays.toString(x));
-        model.addAttribute("y", Arrays.toString(y));
+
+        model.addAttribute("x", Arrays.toString(xArray))
+                .addAttribute("y", Arrays.toString(yArray))
+                .addAttribute("xAnswer", xAnswer)
+                .addAttribute("yAnswer", spline.getValue(xAnswer))
+                .addAttribute("drawable", true);
     }
 
 }

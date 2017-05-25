@@ -7,9 +7,9 @@ import static junit.framework.TestCase.assertEquals;
 public class UnlinearEquationCalculatorTest {
 
     private UnlinearEquationCalculator calculator = new UnlinearEquationCalculatorImpl();
-    private String function = "x^2-4";
-    private String interval = "0.1;3";
-    private String x = "x=1.9";
+    private String function = "(x+20)^2";
+    private String interval = "-40;30";
+    private String x = "x=-10";
     private String x1 = "x1=0";
     private String x2 = "x2=3";
 

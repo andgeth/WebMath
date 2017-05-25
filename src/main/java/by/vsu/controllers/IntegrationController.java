@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class IntegrationController {
+public class IntegrationController extends BaseController {
 
     @Autowired private IntegrationCalculator integrationCalculator;
 

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Arrays;
 
 @Controller
-public class DifferentialSystemController {
+public class DifferentialSystemController extends BaseController {
 
     @Autowired private DifferentialSystemCalculator differentialSystemCalculator;
 
@@ -90,9 +90,10 @@ public class DifferentialSystemController {
             y2[i] = answer[1][i];
             x[i] = a + h * i;
         }
-        model.addAttribute("x", Arrays.toString(x));
-        model.addAttribute("y", Arrays.toString(y1));
-        model.addAttribute("y1", Arrays.toString(y2));
+        model.addAttribute("x", Arrays.toString(x))
+                .addAttribute("y", Arrays.toString(y1))
+                .addAttribute("y1", Arrays.toString(y2))
+                .addAttribute("drawable", true);
     }
 
 }
