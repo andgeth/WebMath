@@ -1,6 +1,6 @@
 package by.vsu.controllers;
 
-import by.vsu.calculators.UnlinearSystemCalculator;
+import by.vsu.calculators.NonlinearSystemCalculator;
 import by.vsu.exceptions.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class UnlinearSystemController extends BaseController {
+public class NonlinearSystemController extends BaseController {
 
-    private @Autowired UnlinearSystemCalculator unlinearSystemCalculator;
+    private @Autowired NonlinearSystemCalculator nonlinearSystemCalculator;
 
     @GetMapping(value = "/system-newton")
     public String systemNewton() {
@@ -32,15 +32,17 @@ public class UnlinearSystemController extends BaseController {
                                @RequestParam(value = "e") Double e,
                                Model model) {
         try {
-            double[] answer = this.unlinearSystemCalculator.newton(functions, interval, x0, y0, e);
-            model.addAttribute("answer", "x = " + answer[0] + ", y = " + answer[1])
-                    .addAttribute("drawable", false);
+            double[] answer = this.nonlinearSystemCalculator.newton(functions, interval, x0, y0, e);
+            model.addAttribute("answer", x0.split("=")[0] + " = " + answer[0] + ", " + y0.split("=")[0] + " = " + answer[1])
+                    .addAttribute("drawable", false)
+                    .addAttribute("animatable", false);
             return "answer";
         } catch (ApiException exception) {
             model.addAttribute("error", exception.getMessage());
         } catch (Exception exception) {
             model.addAttribute("error", "Упс, что-то пошло не так:( Попробуйте ещё раз!");
         }
+        buildErrorModel(functions, interval, x0, y0, e, model);
         return "system-newton";
     }
 
@@ -52,16 +54,26 @@ public class UnlinearSystemController extends BaseController {
                                         @RequestParam(value = "e") Double e,
                                         Model model) {
         try {
-            double[] answer = this.unlinearSystemCalculator.simpleIteration(functions, interval, x0, y0, e);
-            model.addAttribute("answer", "x = " + answer[0] + ", y = " + answer[1])
-                    .addAttribute("drawable", false);
+            double[] answer = this.nonlinearSystemCalculator.simpleIteration(functions, interval, x0, y0, e);
+            model.addAttribute("answer", x0.split("=")[0] + " = " + answer[0] + ", " + y0.split("=")[0] + " = " + answer[1])
+                    .addAttribute("drawable", false)
+                    .addAttribute("animatable", false);
             return "answer";
         } catch (ApiException exception) {
             model.addAttribute("error", exception.getMessage());
         } catch (Exception exception) {
             model.addAttribute("error", "Упс, что-то пошло не так:( Попробуйте ещё раз!");
         }
+        buildErrorModel(functions, interval, x0, y0, e, model);
         return "system-simple-iteration";
+    }
+
+    private void buildErrorModel(String functions, String interval, String x0, String y0, double e, Model model) {
+        model.addAttribute("functions", functions)
+                .addAttribute("interval", interval)
+                .addAttribute("x0", x0)
+                .addAttribute("y0", y0)
+                .addAttribute("e", e);
     }
 
 }

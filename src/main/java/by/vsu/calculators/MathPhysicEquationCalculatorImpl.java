@@ -2,10 +2,20 @@ package by.vsu.calculators;
 
 import by.vsu.core.mathphysiceq.HyperbolicEquation;
 import by.vsu.core.mathphysiceq.ParabolicEquation;
+import by.vsu.core.mathphysiceq.ellipticequation.SimpleGeometry;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MathPhysicEquationCalculatorImpl implements MathPhysicEquationCalculator {
+
+    @Override
+    public double[][] elliptic(String xInterval, String tInterval, String boundConditions, double h, double e) {
+        double a1 = Double.parseDouble(xInterval.split(";")[0]);
+        double b1 = Double.parseDouble(xInterval.split(";")[1]);
+        double a2 = Double.parseDouble(tInterval.split(";")[0]);
+        double b2 = Double.parseDouble(tInterval.split(";")[1]);
+        return new SimpleGeometry(a1, b1, a2, b2, boundConditions.split(";"), h, e).solve();
+    }
 
     @Override
     public double[][] hyperbolic(String initConditions, String boundConditions, String xInterval, String tInterval, Double hx,

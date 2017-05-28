@@ -1,7 +1,12 @@
 ﻿<%@tag%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set var="initValuePattern" value="^[a-zA-Z][a-zA-Z\d]*=-?\d+(.\d+)?$" scope="application" />
+<c:set var="intervalPattern" value="^-?\d+(.\d+)?;-?\d+(.\d+)?$" scope="application" />
+<c:set var="ePattern" value="^-?\d+(.\d+)?$" scope="application" />
+<c:set var="hPattern" value="^([-]?)(\d+)([.]?)(\d*)" scope="application" />
+<c:set var="multiValuesPattern" value="^-?[0-9]+(.[0-9]+)?(,-?[0-9]+(.[0-9]+)?)*$" scope="application" />
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,10 +14,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>WebMath</title>
 
-        <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/bootstrap.min.css" />">
-        <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/TG.css" />">
-        <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/pushy.css" />">
-        <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/style.css" />">
+        <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/TG.css">
+        <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/pushy.css">
+        <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/style.css">
     </head>
 
     <body style="background: url(${contextPath}/resources/images/background.jpg) no-repeat">

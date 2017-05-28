@@ -19,7 +19,20 @@
         </div>
     </c:if>
     <label for="answer">Ответ: </label>
-    <p class="text-success text-left" id="answer">${answer}</p>
+    <div id="answer" class="text-success text-left">
+        <c:forEach items="${answer}" var="answerItem">
+            <c:forEach items="${answerItem}" var="item">
+                <span><c:out value="${item}" /></span>
+            </c:forEach>
+            <br>
+        </c:forEach>
+    </div>
+    <c:if test="${animatable == true}">
+        <div class="form-inline">
+            <input type="button" id="animationBtn" class="btn btn-success" value="Анимация">
+            <input type="number" id="delay" class="form-control" value="100">
+        </div>
+    </c:if>
 
     <script language="javascript" type="text/javascript" src="${contextPath}/resources/js/jquery-3.2.1.min.js"></script>
     <script language="javascript" type="text/javascript" src="${contextPath}/resources/js/jquery.flot.js"></script>

@@ -35,11 +35,11 @@ public class InterpolationController extends BaseController {
     @PostMapping(value = "/poly-lagrange")
     public String lagrange(@RequestParam(value = "xValues") String xValues,
                            @RequestParam(value = "yValues") String yValues,
-                           @RequestParam(value = "points") String strPoints,
+                           @RequestParam(value = "points") String points,
                            @RequestParam(value = "x") Double x,
                            Model model) {
         try {
-            model.addAttribute("answer", this.interpolationCalculator.lagrange(xValues, yValues, strPoints, x))
+            model.addAttribute("answer", this.interpolationCalculator.lagrange(xValues, yValues, points, x))
                     .addAttribute("drawable", false);
             return "answer";
         } catch (ApiException exception) {
@@ -47,18 +47,19 @@ public class InterpolationController extends BaseController {
         } catch (Exception exception) {
             model.addAttribute("error", "Данные введены неверно!");
         }
+        buildErrorModel(xValues, yValues, points, x, model);
         return "poly-lagrange";
     }
 
     @PostMapping(value = "/poly-newton")
     public String newton(@RequestParam(value = "xValues") String xValues,
                          @RequestParam(value = "yValues") String yValues,
-                         @RequestParam(value = "points") String strPoints,
+                         @RequestParam(value = "points") String points,
                          @RequestParam(value = "x") Double x,
                          Model model) {
         try {
 
-            model.addAttribute("answer", this.interpolationCalculator.newton(xValues, yValues, strPoints, x))
+            model.addAttribute("answer", this.interpolationCalculator.newton(xValues, yValues, points, x))
                     .addAttribute("drawable", false);
             return "answer";
         } catch (ApiException exception) {
@@ -66,6 +67,7 @@ public class InterpolationController extends BaseController {
         } catch (Exception exception) {
             model.addAttribute("error", "Данные введены неверно!");
         }
+        buildErrorModel(xValues, yValues, points, x, model);
         return "poly-newton";
     }
 
@@ -84,7 +86,19 @@ public class InterpolationController extends BaseController {
         } catch (Exception exception) {
             model.addAttribute("error", "Данные введены неверно!");
         }
+        buildErrorModel(xValues, yValues, x, model);
         return "spline";
+    }
+
+    private void buildErrorModel(String xValues, String yValues, String points, double x, Model model) {
+        buildErrorModel(xValues, yValues, x, model);
+        model.addAttribute("points", points);
+    }
+
+    private void buildErrorModel(String xValues, String yValues, double x, Model model) {
+        model.addAttribute("xValues", xValues)
+                .addAttribute("yValues", yValues)
+                .addAttribute("x", x);
     }
 
     private void prepareForDrawing(Spline spline, double xAnswer, String xValues, Model model) {

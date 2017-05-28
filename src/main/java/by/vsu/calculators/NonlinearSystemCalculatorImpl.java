@@ -8,7 +8,7 @@ import by.vsu.exceptions.SolutionNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UnlinearSystemCalculatorImpl implements UnlinearSystemCalculator {
+public class NonlinearSystemCalculatorImpl implements NonlinearSystemCalculator {
 
     @Override
     public double[] newton(String functions, String interval, String x0, String y0, double e) {

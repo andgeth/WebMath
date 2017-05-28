@@ -1,6 +1,6 @@
 package by.vsu.controllers;
 
-import by.vsu.calculators.UnlinearEquationCalculator;
+import by.vsu.calculators.NonlinearEquationCalculator;
 import by.vsu.core.analyzer.AlgebraicFunction;
 import by.vsu.exceptions.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Arrays;
 
 @Controller
-public class UnlinearController extends BaseController {
+public class NonlinearController extends BaseController {
 
-    @Autowired private UnlinearEquationCalculator unlinearEquationCalculator;
+    @Autowired private NonlinearEquationCalculator nonlinearEquationCalculator;
 
     @GetMapping(value = "/simple-iteration")
     public String simpleIteration() {
@@ -49,15 +49,18 @@ public class UnlinearController extends BaseController {
                                   @RequestParam(value = "e") Double e,
                                   Model model) {
         try {
-            double answer = this.unlinearEquationCalculator.simpleIteration(function, interval, x0, e);
+            double answer = this.nonlinearEquationCalculator.simpleIteration(function, interval, x0, e);
             prepareForDrawing(answer, function, (answer - 10) + ";" + (answer + 10), model);
-            model.addAttribute("answer", answer);
             return "answer";
         } catch (ApiException exception) {
             model.addAttribute("error", exception.getMessage());
         } catch (Exception ex) {
-            model.addAttribute("error", "Данные введены неверно!");
+            model.addAttribute("error", "Решение не найдено!");
         }
+        model.addAttribute("function", function)
+                .addAttribute("interval", interval)
+                .addAttribute("x0", x0)
+                .addAttribute("e", e);
         return "simple-iteration";
     }
 
@@ -68,15 +71,18 @@ public class UnlinearController extends BaseController {
                         @RequestParam(value = "e") Double e,
                         Model model) {
         try {
-            double answer = this.unlinearEquationCalculator.chord(function, x1, x2, e);
+            double answer = this.nonlinearEquationCalculator.chord(function, x1, x2, e);
             prepareForDrawing(answer, function, (answer - 10) + ";" + (answer + 10), model);
-            model.addAttribute("answer", answer);
             return "answer";
         } catch (ApiException exception) {
             model.addAttribute("error", exception.getMessage());
         } catch (Exception ex) {
             model.addAttribute("error", "Данные введены неверно!");
         }
+        model.addAttribute("function", function)
+                .addAttribute("x1", x1)
+                .addAttribute("x2", x2)
+                .addAttribute("e", e);
         return "chord";
     }
 
@@ -86,15 +92,17 @@ public class UnlinearController extends BaseController {
                             @RequestParam(value = "e") Double e,
                             Model model) {
         try {
-            double answer = this.unlinearEquationCalculator.dichotomy(function, interval, e);
+            double answer = this.nonlinearEquationCalculator.dichotomy(function, interval, e);
             prepareForDrawing(answer, function, (answer - 10) + ";" + (answer + 10), model);
-            model.addAttribute("answer", answer);
             return "answer";
         } catch (ApiException exception) {
             model.addAttribute("error", exception.getMessage());
         } catch (Exception exception) {
             model.addAttribute("error", "Данные введены неверно!");
         }
+        model.addAttribute("function", function)
+                .addAttribute("interval", interval)
+                .addAttribute("e", e);
         return "dichotomy";
     }
 
@@ -104,15 +112,17 @@ public class UnlinearController extends BaseController {
                          @RequestParam(value = "e") Double e,
                          Model model) {
         try {
-            double answer = this.unlinearEquationCalculator.newton(function, x0, e);
+            double answer = this.nonlinearEquationCalculator.newton(function, x0, e);
             prepareForDrawing(answer, function, (answer - 10) + ";" + (answer + 10), model);
-            model.addAttribute("answer", answer);
             return "answer";
         } catch (ApiException exception) {
             model.addAttribute("error", exception.getMessage());
         } catch (Exception ex) {
             model.addAttribute("error", "Данные введены неверно!");
         }
+        model.addAttribute("function", function)
+                .addAttribute("x0", x0)
+                .addAttribute("e", e);
         return "newton";
     }
 
@@ -123,15 +133,18 @@ public class UnlinearController extends BaseController {
                          @RequestParam(value = "e") Double e,
                          Model model) {
         try {
-            double answer = this.unlinearEquationCalculator.secant(function, x1, x2, e);
+            double answer = this.nonlinearEquationCalculator.secant(function, x1, x2, e);
             prepareForDrawing(answer, function, (answer - 10) + ";" + (answer + 10), model);
-            model.addAttribute("answer", answer);
             return "answer";
         } catch (ApiException exception) {
             model.addAttribute("error", exception.getMessage());
         } catch (Exception ex) {
             model.addAttribute("error", "Данные введены неверно!");
         }
+        model.addAttribute("function", function)
+                .addAttribute("x1", x1)
+                .addAttribute("x2", x2)
+                .addAttribute("e", e);
         return "secant";
     }
 
@@ -149,10 +162,11 @@ public class UnlinearController extends BaseController {
             x[i] = a + h * i;
         }
         af.insertValue(answer);
-        model.addAttribute("y", Arrays.toString(y))
-                .addAttribute("x", Arrays.toString(x))
+        model.addAttribute("x", Arrays.toString(x))
+                .addAttribute("y", Arrays.toString(y))
                 .addAttribute("xAnswer", answer)
                 .addAttribute("yAnswer", af.getValue())
+                .addAttribute("answer", new String[][] {{ String.valueOf(answer) }})
                 .addAttribute("drawable", true);
 
     }

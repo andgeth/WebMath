@@ -1,12 +1,12 @@
-import by.vsu.calculators.UnlinearEquationCalculator;
-import by.vsu.calculators.UnlinearEquationCalculatorImpl;
+import by.vsu.calculators.NonlinearEquationCalculator;
+import by.vsu.calculators.NonlinearEquationCalculatorImpl;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
 
 public class UnlinearEquationCalculatorTest {
 
-    private UnlinearEquationCalculator calculator = new UnlinearEquationCalculatorImpl();
+    private NonlinearEquationCalculator calculator = new NonlinearEquationCalculatorImpl();
     private String function = "(x+20)^2";
     private String interval = "-40;30";
     private String x = "x=-10";

@@ -1,12 +1,12 @@
-import by.vsu.calculators.UnlinearSystemCalculator;
-import by.vsu.calculators.UnlinearSystemCalculatorImpl;
+import by.vsu.calculators.NonlinearSystemCalculator;
+import by.vsu.calculators.NonlinearSystemCalculatorImpl;
 import org.junit.Test;
 
 import java.util.Arrays;
 
-public class UnlinearSystemCalculatorTest {
+public class NonlinearSystemCalculatorTest {
 
-    final private UnlinearSystemCalculator calculator = new UnlinearSystemCalculatorImpl();
+    final private NonlinearSystemCalculator calculator = new NonlinearSystemCalculatorImpl();
 
     private String functions = "cos(x+0.5)-2-y;sin(y)-2*x-1";
     private String interval = "-10;-5";

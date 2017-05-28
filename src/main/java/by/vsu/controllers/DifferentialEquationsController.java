@@ -44,8 +44,11 @@ public class DifferentialEquationsController extends BaseController {
                         Model model) {
         try {
             double[] answer = this.differentialEquationCalculator.euler(function, interval, y0, h);
-            prepareForDrawing(answer, interval, h, model);
-            model.addAttribute("answer", Arrays.toString(answer));
+            String[][] strings = new String[1][answer.length];
+            for (int i = 0; i < strings[0].length; i++) {
+                strings[0][i] = String.valueOf(round(answer[i], 4));
+            }
+            prepareForDrawing(strings, answer, interval, h, model);
             return "answer";
         }
         catch (ApiException exception) {
@@ -54,6 +57,7 @@ public class DifferentialEquationsController extends BaseController {
         catch (Exception exception) {
             model.addAttribute("error", "Данные введены неверно!");
         }
+        buildErrorModel(function, interval, y0, h, model);
         return "euler";
     }
 
@@ -65,18 +69,21 @@ public class DifferentialEquationsController extends BaseController {
                               Model model) {
         try {
             double[] answer = this.differentialEquationCalculator.betterEuler(function, interval, y0, h);
-            prepareForDrawing(answer, interval, h, model);
-            model.addAttribute("answer", Arrays.toString(answer));
+            String[][] strings = new String[1][answer.length];
+            for (int i = 0; i < strings[0].length; i++) {
+                strings[0][i] = String.valueOf(round(answer[i], 4));
+            }
+            prepareForDrawing(strings, answer, interval, h, model);
             return "answer";
         }
         catch (ApiException exception) {
             model.addAttribute("error", exception.getMessage());
-            return "better-euler";
         }
         catch (Exception exception) {
             model.addAttribute("error", "Данные введены неверно!");
-            return "better-euler";
         }
+        buildErrorModel(function, interval, y0, h, model);
+        return "better-euler";
     }
 
     @PostMapping("/euler-cauchy")
@@ -87,8 +94,11 @@ public class DifferentialEquationsController extends BaseController {
                               Model model) {
         try {
             double[] answer = this.differentialEquationCalculator.eulerCauchy(function, interval, y0, h);
-            prepareForDrawing(answer, interval, h, model);
-            model.addAttribute("answer", Arrays.toString(answer));
+            String[][] strings = new String[1][answer.length];
+            for (int i = 0; i < strings[0].length; i++) {
+                strings[0][i] = String.valueOf(round(answer[i], 4));
+            }
+            prepareForDrawing(strings, answer, interval, h, model);
             return "answer";
         }
         catch (ApiException exception) {
@@ -97,6 +107,7 @@ public class DifferentialEquationsController extends BaseController {
         catch (Exception exception) {
             model.addAttribute("error", "Данные введены неверно!");
         }
+        buildErrorModel(function, interval, y0, h, model);
         return "euler-cauchy";
     }
 
@@ -108,8 +119,11 @@ public class DifferentialEquationsController extends BaseController {
                              Model model) {
         try {
             double[] answer = this.differentialEquationCalculator.rungeKutta(function, interval, y0, h);
-            prepareForDrawing(answer, interval, h, model);
-            model.addAttribute("answer", Arrays.toString(answer));
+            String[][] strings = new String[1][answer.length];
+            for (int i = 0; i < strings[0].length; i++) {
+                strings[0][i] = String.valueOf(round(answer[i], 4));
+            }
+            prepareForDrawing(strings, answer, interval, h, model);
             return "answer";
         }
         catch (ApiException exception) {
@@ -118,10 +132,18 @@ public class DifferentialEquationsController extends BaseController {
         catch (Exception exception) {
             model.addAttribute("error", "Данные введены неверно!");
         }
+        buildErrorModel(function, interval, y0, h, model);
         return "runge-kutta";
     }
 
-    private void prepareForDrawing(double[] answer, String interval, double h, Model model) {
+    private void buildErrorModel(String function, String interval, String y0, double h, Model model) {
+        model.addAttribute("function", function)
+                .addAttribute("interval", interval)
+                .addAttribute("y0", y0)
+                .addAttribute("h", h);
+    }
+
+    private void prepareForDrawing(String[][] strings, double[] answer, String interval, double h, Model model) {
         double a = Double.valueOf(interval.split(";")[0]);
         double[] x = new double[answer.length];
         for (int i = 0; i < answer.length; i++) {
@@ -129,7 +151,8 @@ public class DifferentialEquationsController extends BaseController {
         }
         model.addAttribute("x", Arrays.toString(x))
                 .addAttribute("yPoints", Arrays.toString(answer))
-                .addAttribute("drawable", true);
+                .addAttribute("drawable", true)
+                .addAttribute("answer", strings);
     }
 
 }

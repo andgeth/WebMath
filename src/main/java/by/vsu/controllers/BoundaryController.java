@@ -45,6 +45,7 @@ public class BoundaryController extends BaseController {
         } catch (Exception exception) {
             model.addAttribute("error", "Данные введены неверно!");
         }
+        buildErrorModel(functions, startCondition, endCondition, interval, h, model);
         return "nets";
     }
 
@@ -62,6 +63,7 @@ public class BoundaryController extends BaseController {
         } catch (Exception exception) {
             model.addAttribute("error", "Данные введены неверно!");
         }
+        buildErrorModel(functions, startCondition, endCondition, interval, h, model);
         return "reduction";
     }
 
@@ -80,7 +82,25 @@ public class BoundaryController extends BaseController {
         } catch (Exception exception) {
             model.addAttribute("error", "Данные введены неверно!");
         }
+        buildErrorModel(functions, startCondition, endCondition, shootAngles, initValue, interval, h, e, model);
         return "shoot";
+    }
+
+    private void buildErrorModel(String functions, String startCondition, String endCondition, String interval, double h,
+                                 Model model) {
+        model.addAttribute("functions", functions)
+                .addAttribute("startCondition", startCondition)
+                .addAttribute("endCondition", endCondition)
+                .addAttribute("interval", interval)
+                .addAttribute("h", h);
+    }
+
+    private void buildErrorModel(String functions, String startCondition, String endCondition, String shootAngles,
+                                 double initValue, String interval, double h, double e, Model model) {
+        buildErrorModel(functions, startCondition, endCondition, interval, h, model);
+        model.addAttribute("shootAngles", shootAngles)
+                .addAttribute("initValue", initValue)
+                .addAttribute("e", e);
     }
 
     private void prepareForDrawing(double[] answer, String interval, double h, Model model) {

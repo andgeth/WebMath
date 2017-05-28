@@ -50,6 +50,7 @@ public class DifferentialSystemController extends BaseController {
         } catch (Exception exception) {
             model.addAttribute("error", "Данные введены неверно!");
         }
+        buildErrorModel(functions, interval, y0, z0, model);
         return "euler-system";
     }
 
@@ -77,7 +78,15 @@ public class DifferentialSystemController extends BaseController {
         } catch (Exception exception) {
             model.addAttribute("error", "Данные введены неверно!");
         }
+        buildErrorModel(functions, interval, y0, z0, model);
         return "runge-kutta-system";
+    }
+
+    private void buildErrorModel(String functions, String interval, String y0, String z0, Model model) {
+        model.addAttribute("functions", functions)
+                .addAttribute("interval", interval)
+                .addAttribute("y0", y0)
+                .addAttribute("z0", z0);
     }
 
     private void prepareForDrawing(double[][] answer, String interval, double h, Model model) {

@@ -1,7 +1,6 @@
 package by.vsu.controllers;
 
 import by.vsu.calculators.MathPhysicEquationCalculator;
-import by.vsu.core.mathphysiceq.ellipticequation.SimpleGeometry;
 import by.vsu.exceptions.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,25 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Arrays;
-import java.util.Locale;
 
 @Controller
 public class MathPhysicController extends BaseController {
 
     @Autowired private MathPhysicEquationCalculator mathPhysicEquationCalculator;
-
-    private String toString(double[][] arr) {
-        Locale l = new Locale("en", "GB");
-        StringBuilder sb = new StringBuilder();
-        for (double[] anArr : arr) {
-            //            sb.append("[");
-            for (double anAnArr : anArr) {
-                sb.append(String.format(l, "%.4f, ", anAnArr));
-            }
-            //            sb.append(String.format(l, "%.4f]", arr[i][arr[i].length - 1]));
-        }
-        return sb.toString();
-    }
 
     @GetMapping("parabolic-eq")
     public String parabolic() {
@@ -51,19 +36,22 @@ public class MathPhysicController extends BaseController {
                            @RequestParam(value = "xInterval") String xInterval,
                            @RequestParam(value = "tInterval") String tInterval,
                            @RequestParam(value = "h") Double h,
-                           @RequestParam(value = "precision") Double precision,
+                           @RequestParam(value = "e") Double e,
                            Model model) {
-        if (boundConditions != null) {
-            double a = Double.parseDouble(xInterval.split(";")[0]);
-            double b = Double.parseDouble(xInterval.split(";")[1]);
-            double a1 = Double.parseDouble(tInterval.split(";")[0]);
-            double b1 = Double.parseDouble(tInterval.split(";")[1]);
-            String[] boundCondit = boundConditions.split(";");
-            SimpleGeometry simpleGeometry = new SimpleGeometry(a, b, a1, b1, boundCondit, h, precision);
-            double[][] solve = simpleGeometry.solve();
-            prepareForDrawing(solve, xInterval, h, model);
-            model.addAttribute("answer", toString(solve));
-            return "answer";
+        try {
+            double[][] answer = this.mathPhysicEquationCalculator.elliptic(xInterval, tInterval, boundConditions, h, e);
+            String[][] strings = new String[answer.length][answer[0].length];
+            for (int i = 0; i < strings.length; i++) {
+                for (int j = 0; j < strings[i].length; j++) {
+                    strings[i][j] = String.valueOf(round(answer[i][j], 4));
+                }
+            }
+            prepareForDrawing(answer, xInterval, h, model);
+            model.addAttribute("answer", strings);
+        } catch (ApiException exception) {
+            model.addAttribute("error", exception.getMessage());
+        } catch (Exception exception) {
+            model.addAttribute("error", "Что-то пошло не так:( Попробуйте ещё раз.");
         }
         return "elliptic-eq";
     }
@@ -80,20 +68,14 @@ public class MathPhysicController extends BaseController {
                             Model model) {
         try {
             double[][] answer = this.mathPhysicEquationCalculator.parabolic(function, initCondition, boundConditions, xInterval, tInterval, hx, ht, weight);
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < answer.length - 1; i++) {
-                sb.append(round(answer[i][0], 4));
-                for (int j = 1; j < answer[i].length; j++) {
-                    sb.append(" ").append(round(answer[i][j], 4));
+            String[][] strings = new String[answer.length][answer[0].length];
+            for (int i = 0; i < strings.length; i++) {
+                for (int j = 0; j < strings[i].length; j++) {
+                    strings[i][j] = String.valueOf(round(answer[i][j], 4));
                 }
-                sb.append("<br>");
-            }
-            sb.append(round(answer[answer.length - 1][0], 4));
-            for (int j = 1; j < answer[answer.length - 1].length; j++) {
-                sb.append(" ").append(round(answer[answer.length - 1][j], 4));
             }
             prepareForDrawing(answer, xInterval, hx, model);
-            model.addAttribute("answer", sb);
+            model.addAttribute("answer", strings);
             return "answer";
         } catch (ApiException exception) {
             model.addAttribute("error", exception.getMessage());
@@ -113,20 +95,15 @@ public class MathPhysicController extends BaseController {
                              Model model) {
         try {
             double[][] answer = this.mathPhysicEquationCalculator.hyperbolic(initConditions, boundConditions, xInterval, tInterval, hx, ht);
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < answer.length - 1; i++) {
-                sb.append(round(answer[i][0], 4));
-                for (int j = 1; j < answer[i].length; j++) {
-                    sb.append(" ").append(round(answer[i][j], 4));
+            String[][] strings = new String[answer.length][answer[0].length];
+            for (int i = 0; i < strings.length; i++) {
+                for (int j = 0; j < strings[i].length; j++) {
+                    strings[i][j] = String.valueOf(round(answer[i][j], 4));
                 }
-                sb.append("<br>");
-            }
-            sb.append(round(answer[answer.length - 1][0], 4));
-            for (int j = 1; j < answer[answer.length - 1].length; j++) {
-                sb.append(" ").append(round(answer[answer.length - 1][j], 4));
             }
             prepareForDrawing(answer, xInterval, hx, model);
-            model.addAttribute("answer", sb);
+            model.addAttribute("answer", strings)
+                    .addAttribute("animatable", true);
             return "answer";
         } catch (ApiException exception) {
             model.addAttribute("error", exception.getMessage());

@@ -4,7 +4,7 @@ import by.vsu.core.analyzer.algebra.VariableValuePair;
 
 import java.util.Arrays;
 
-public class SimpleIteration extends UnlinearSystem {
+public class SimpleIteration extends NonlinearSystem {
 
     public SimpleIteration(String[] functions, VariableValuePair[] x0) {
         super(functions, x0);

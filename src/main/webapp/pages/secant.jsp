@@ -1,5 +1,8 @@
-﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib tagdir="/WEB-INF/tags" prefix="i"%>
+﻿<%@page contentType="text/html;charset=UTF-8" language="java"%>
+
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib tagdir="/WEB-INF/tags" prefix="i"%>
+<%@taglib prefix="p" tagdir="/WEB-INF/tags/patterns"%>
 
 <i:html>
     <h1>Метод секущих</h1>
@@ -8,19 +11,23 @@
             <fieldset id="inputs">
                 <div class="row form-group">
                     <div class="col-sm-4"><label for="function">Функция:</label></div>
-                    <div class="col-sm-8"><input type="text" id="function" name="function" class="form-control" title="Например: x+2 или x^2-2"></div>
+                    <div class="col-sm-8"><input id="function" name="function" class="form-control" value="${function}"
+                                                 title="Например: x+2 или x^2-2"></div>
                 </div>
                 <div class="row form-group">
                     <div class="col-sm-4"><label for="x1">Начальное приближение x1:</label></div>
-                    <div class="col-sm-8"><i:initValue id="x1" name="x1" /></div>
+                    <div class="col-sm-8"><input id="x1" name="x1" class="form-control" value="${x1}"
+                                                 pattern="${initValuePattern}" required></div>
                 </div>
                 <div class="row form-group">
                     <div class="col-sm-4"><label for="x2">Начальное приближение x2:</label></div>
-                    <div class="col-sm-8"><i:initValue id="x2" name="x2" /></div>
+                    <div class="col-sm-8"><input id="x2" name="x2" class="form-control" value="${x2}"
+                                                 pattern="${initValuePattern}" required></div>
                 </div>
                 <div class="row form-group">
                     <div class="col-sm-4"><label for="e">Точность:</label></div>
-                    <div class="col-sm-8"><input type="text" id="e" name="e" class="form-control" pattern="^-?[0-9]+(.[0-9]+)?$" required></div>
+                    <div class="col-sm-8"><input id="e" name="e" class="form-control" value="${e}"
+                                                 pattern="${ePattern}" required></div>
                 </div>
             </fieldset>
             <fieldset id="buttons">

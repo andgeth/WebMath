@@ -8,7 +8,7 @@ import by.vsu.exceptions.SolutionNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UnlinearEquationCalculatorImpl implements UnlinearEquationCalculator {
+public class NonlinearEquationCalculatorImpl implements NonlinearEquationCalculator {
 
     @Override
     public double chord(String function, String x1, String x2, double e) {

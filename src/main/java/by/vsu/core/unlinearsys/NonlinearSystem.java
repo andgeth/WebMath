@@ -3,13 +3,13 @@ package by.vsu.core.unlinearsys;
 import by.vsu.core.analyzer.AlgebraicFunction;
 import by.vsu.core.analyzer.algebra.VariableValuePair;
 
-public abstract class UnlinearSystem {
+public abstract class NonlinearSystem {
 
     AlgebraicFunction[] f;
     VariableValuePair[] x0;
     int number;
 
-    UnlinearSystem(String[] functions, VariableValuePair[] x0) {
+    NonlinearSystem(String[] functions, VariableValuePair[] x0) {
         this.number = functions.length;
         this.x0 = new VariableValuePair[number];
         this.f = new AlgebraicFunction[number];

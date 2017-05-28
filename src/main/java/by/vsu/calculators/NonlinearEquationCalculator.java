@@ -1,6 +1,6 @@
 package by.vsu.calculators;
 
-public interface UnlinearEquationCalculator {
+public interface NonlinearEquationCalculator {
 
     double chord(String function, String x1, String x2, double e);
     double dichotomy(String function, String interval, double e);

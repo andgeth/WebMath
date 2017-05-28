@@ -48,10 +48,8 @@ textarea {
     height: 102px;
 }
 
-/*#inputs {*/
-    /*margin-bottom: 3%;*/
-/*}*/
-
-/*#inputs input[type=text] {*/
-    /*margin-bottom: 2%;*/
-/*}*/
+#answer {
+    width: 800px;
+    height: 120px;
+    overflow: auto;
+}

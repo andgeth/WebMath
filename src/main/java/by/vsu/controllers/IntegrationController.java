@@ -46,6 +46,7 @@ public class IntegrationController extends BaseController {
         } catch (Exception exception) {
             model.addAttribute("error", "Данные введены неверно!");
         }
+        buildErrorModel(function, interval, h, model);
         return "rectangles";
     }
 
@@ -67,6 +68,7 @@ public class IntegrationController extends BaseController {
         } catch (Exception exception) {
             model.addAttribute("error", "Данные введены неверно!");
         }
+        buildErrorModel(function, interval, h, model);
         return "trapeze";
     }
 
@@ -88,7 +90,14 @@ public class IntegrationController extends BaseController {
         } catch (Exception exception) {
             model.addAttribute("error", "Данные введены неверно!");
         }
+        buildErrorModel(function, interval, h, model);
         return "simpson";
+    }
+
+    private void buildErrorModel(String function, String interval, double h, Model model) {
+        model.addAttribute("function", function)
+                .addAttribute("interval", interval)
+                .addAttribute("h", h);
     }
 
 }

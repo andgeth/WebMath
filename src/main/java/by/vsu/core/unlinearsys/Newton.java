@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.TreeSet;
 
-public class Newton extends UnlinearSystem {
+public class Newton extends NonlinearSystem {
     private String[][] dependencies;
 
     public Newton(String[] functions, VariableValuePair[] x0) {
@@ -19,14 +19,14 @@ public class Newton extends UnlinearSystem {
 
     private double[][] JacobiMatrix(VariableValuePair[] x0) {
         double[][] res = new double[number][number];
-        TreeSet<String> setDependentElems = new TreeSet<>();
+        TreeSet<String> dependentElements = new TreeSet<>();
         Iterator<String> iterator;
         for (String[] s : dependencies) {
-            setDependentElems.addAll(Arrays.asList(s));
+            dependentElements.addAll(Arrays.asList(s));
         }
         for (int i = 0; i < number; i++) {
             f[i].insertValues(x0);
-            iterator = setDependentElems.iterator();
+            iterator = dependentElements.iterator();
             for (int j = 0; j < number; j++) {
                 if (iterator.hasNext()) {
                     res[i][j] = f[i].getDerivativeValue(iterator.next());

@@ -1,4 +1,6 @@
-﻿<%@ taglib tagdir="/WEB-INF/tags" prefix="i"%>
+﻿<%@page contentType="text/html;charset=UTF-8" language="java"%>
+
+<%@taglib tagdir="/WEB-INF/tags" prefix="i"%>
 
 <i:html>
     <br>
