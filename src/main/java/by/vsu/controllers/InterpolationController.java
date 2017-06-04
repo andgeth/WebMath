@@ -1,7 +1,7 @@
 package by.vsu.controllers;
 
 import by.vsu.calculators.InterpolationCalculator;
-import by.vsu.core.math.objects.Spline;
+import by.vsu.math.objects.Spline;
 import by.vsu.exceptions.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

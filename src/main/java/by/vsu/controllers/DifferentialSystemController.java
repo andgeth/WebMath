@@ -35,15 +35,14 @@ public class DifferentialSystemController extends BaseController {
                               Model model) {
         try {
             double[][] answer = this.differentialSystemCalculator.euler(functions, interval, y0, z0, h);
-            prepareForDrawing(answer, interval, h, model);
-            StringBuilder sb = new StringBuilder();
-            for (double[] array : answer) {
-                for (double element : array) {
-                    sb.append(element).append(" ");
+            String[][] strings = new String[answer.length][answer[0].length];
+            for (int i = 0; i < strings.length; i++) {
+                for (int j = 0; j < strings[i].length; j++) {
+                    strings[i][j] = String.valueOf(round(answer[i][j], 4));
                 }
-                sb.append("\n");
             }
-            model.addAttribute("answer", sb);
+            prepareForDrawing(answer, interval, h, model);
+            model.addAttribute("answer", strings);
             return "answer";
         } catch (ApiException exception) {
             model.addAttribute("error", exception.getMessage());

@@ -48,6 +48,7 @@ public class MathPhysicController extends BaseController {
             }
             prepareForDrawing(answer, xInterval, h, model);
             model.addAttribute("answer", strings);
+            return "answer";
         } catch (ApiException exception) {
             model.addAttribute("error", exception.getMessage());
         } catch (Exception exception) {

@@ -1,8 +1,8 @@
 package by.vsu.calculators;
 
-import by.vsu.core.boundarytask.NetsMethod;
-import by.vsu.core.boundarytask.ReductionMethod;
-import by.vsu.core.boundarytask.ShootMethod;
+import by.vsu.math.methods.boundarytask.NetsMethod;
+import by.vsu.math.methods.boundarytask.ReductionMethod;
+import by.vsu.math.methods.boundarytask.ShootMethod;
 import by.vsu.exceptions.IllegalPointsIntervalException;
 import by.vsu.exceptions.IllegalStepValueException;
 import by.vsu.exceptions.SolutionNotFoundException;

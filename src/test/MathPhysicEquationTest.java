@@ -1,6 +1,6 @@
-import by.vsu.core.mathphysiceq.HyperbolicEquation;
-import by.vsu.core.mathphysiceq.ParabolicEquation;
-import by.vsu.core.mathphysiceq.ellipticequation.SimpleGeometry;
+import by.vsu.math.methods.mathphysiceq.HyperbolicEquation;
+import by.vsu.math.methods.mathphysiceq.ParabolicEquation;
+import by.vsu.math.methods.mathphysiceq.ellipticequation.SimpleGeometry;
 import org.junit.Test;
 
 import java.math.BigDecimal;

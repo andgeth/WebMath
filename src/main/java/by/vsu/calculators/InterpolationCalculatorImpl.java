@@ -1,10 +1,10 @@
 package by.vsu.calculators;
 
-import by.vsu.core.analyzer.AlgebraicFunction;
-import by.vsu.core.interpolating.Lagrange;
-import by.vsu.core.interpolating.Newton;
-import by.vsu.core.interpolating.SplineInterpolating;
-import by.vsu.core.math.objects.Spline;
+import by.vsu.analyzer.AlgebraicFunction;
+import by.vsu.math.methods.interpolating.Lagrange;
+import by.vsu.math.methods.interpolating.Newton;
+import by.vsu.math.methods.interpolating.SplineInterpolating;
+import by.vsu.math.objects.Spline;
 import org.springframework.stereotype.Service;
 
 @Service

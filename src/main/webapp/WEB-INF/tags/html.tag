@@ -27,7 +27,6 @@
                     <div class="container-fluid">
                         <div id="logo" class="row" style="background: url(${contextPath}/resources/images/logo.jpg) no-repeat;">
                             <ul class="nav navbar-nav pull-right">
-                                <li><a href="index">Главная</a></li>
                                 <li><a href="theory">Теория</a></li>
                                 <li><a href="help">Справка</a></li>
                             </ul>

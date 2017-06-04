@@ -1,7 +1,7 @@
 package by.vsu.controllers;
 
 import by.vsu.calculators.NonlinearEquationCalculator;
-import by.vsu.core.analyzer.AlgebraicFunction;
+import by.vsu.analyzer.AlgebraicFunction;
 import by.vsu.exceptions.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

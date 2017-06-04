@@ -1,8 +1,8 @@
 package by.vsu.calculators;
 
-import by.vsu.core.analyzer.algebra.VariableValuePair;
-import by.vsu.core.unlinearsys.Newton;
-import by.vsu.core.unlinearsys.SimpleIteration;
+import by.vsu.analyzer.operators.VariableValuePair;
+import by.vsu.math.methods.unlinearsys.Newton;
+import by.vsu.math.methods.unlinearsys.SimpleIteration;
 import by.vsu.exceptions.IllegalPointsIntervalException;
 import by.vsu.exceptions.SolutionNotFoundException;
 import org.springframework.stereotype.Service;

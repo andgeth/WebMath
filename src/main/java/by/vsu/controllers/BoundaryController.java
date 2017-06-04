@@ -37,7 +37,11 @@ public class BoundaryController extends BaseController {
                       @RequestParam(value = "h") Double h, Model model) {
         try {
             double[] answer = this.boundaryTaskCalculator.nets(functions, startCondition, endCondition, interval, h);
-            model.addAttribute("answer", Arrays.toString(answer));
+            String[][] strings = new String[1][answer.length];
+            for (int i = 0; i < strings.length; i++) {
+                    strings[0][i] = String.valueOf(round(answer[i], 4));
+            }
+            model.addAttribute("answer", strings);
             prepareForDrawing(answer, interval, h, model);
             return "answer";
         } catch (ApiException exception) {
@@ -74,7 +78,11 @@ public class BoundaryController extends BaseController {
                         @RequestParam(value = "h") Double h, @RequestParam(value = "e") Double e, Model model) {
         try {
             double[] answer = this.boundaryTaskCalculator.shoot(functions, startCondition, endCondition, shootAngles, initValue, interval, h, e);
-            model.addAttribute("answer", Arrays.toString(answer));
+            String[][] strings = new String[1][answer.length];
+            for (int i = 0; i < answer.length; i++) {
+                strings[0][i] = String.valueOf(round(answer[i], 4));
+            }
+            model.addAttribute("answer", strings);
             prepareForDrawing(answer, interval, h, model);
             return "answer";
         } catch (ApiException exception) {

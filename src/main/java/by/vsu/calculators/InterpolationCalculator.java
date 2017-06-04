@@ -1,6 +1,6 @@
 package by.vsu.calculators;
 
-import by.vsu.core.math.objects.Spline;
+import by.vsu.math.objects.Spline;
 
 public interface InterpolationCalculator {
 

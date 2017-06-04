@@ -1,8 +1,8 @@
 package by.vsu.calculators;
 
-import by.vsu.core.integration.RectanglesMethod;
-import by.vsu.core.integration.SimpsonMethod;
-import by.vsu.core.integration.TrapezeMethod;
+import by.vsu.math.methods.integration.RectanglesMethod;
+import by.vsu.math.methods.integration.SimpsonMethod;
+import by.vsu.math.methods.integration.TrapezeMethod;
 import by.vsu.exceptions.IllegalPointsIntervalException;
 import org.springframework.stereotype.Service;
 

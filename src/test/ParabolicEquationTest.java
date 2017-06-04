@@ -1,4 +1,4 @@
-import by.vsu.core.mathphysiceq.ParabolicEquation;
+import by.vsu.math.methods.mathphysiceq.ParabolicEquation;
 import org.junit.Test;
 
 public class ParabolicEquationTest {

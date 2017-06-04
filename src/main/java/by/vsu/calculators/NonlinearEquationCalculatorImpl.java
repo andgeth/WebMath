@@ -1,10 +1,10 @@
 package by.vsu.calculators;
 
-import by.vsu.core.analyzer.algebra.VariableValuePair;
-import by.vsu.core.unlinear.*;
+import by.vsu.analyzer.operators.VariableValuePair;
 import by.vsu.exceptions.IllegalInitialApproximationException;
 import by.vsu.exceptions.IllegalPointsIntervalException;
 import by.vsu.exceptions.SolutionNotFoundException;
+import by.vsu.math.methods.unlinear.*;
 import org.springframework.stereotype.Service;
 
 @Service

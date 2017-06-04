@@ -1,6 +1,6 @@
 package by.vsu.controllers;
 
-import by.vsu.core.analyzer.AlgebraicFunction;
+import by.vsu.analyzer.AlgebraicFunction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,6 +67,10 @@ public class MainController extends BaseController {
                         .addAttribute("yValues", Arrays.toString(yValues));
             }
         }
+        model.addAttribute("func1", func1)
+                .addAttribute("func2", func2)
+                .addAttribute("xInterval", xInterval)
+                .addAttribute("yInterval", yInterval);
         return "divide";
     }
 

@@ -1,10 +1,10 @@
 package by.vsu.calculators;
 
-import by.vsu.core.analyzer.algebra.VariableValuePair;
-import by.vsu.core.diffeq.BetterEuler;
-import by.vsu.core.diffeq.Euler;
-import by.vsu.core.diffeq.EulerCauchy;
-import by.vsu.core.diffeq.RungeKutta;
+import by.vsu.analyzer.operators.VariableValuePair;
+import by.vsu.math.methods.diffeq.BetterEuler;
+import by.vsu.math.methods.diffeq.Euler;
+import by.vsu.math.methods.diffeq.EulerCauchy;
+import by.vsu.math.methods.diffeq.RungeKutta;
 import by.vsu.exceptions.IllegalPointsIntervalException;
 import by.vsu.exceptions.IllegalStepValueException;
 import by.vsu.exceptions.SolutionNotFoundException;

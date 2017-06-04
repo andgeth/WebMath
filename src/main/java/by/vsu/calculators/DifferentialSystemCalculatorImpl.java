@@ -1,8 +1,8 @@
 package by.vsu.calculators;
 
-import by.vsu.core.analyzer.algebra.VariableValuePair;
-import by.vsu.core.diffsys.Euler;
-import by.vsu.core.diffsys.RungeKutta;
+import by.vsu.analyzer.operators.VariableValuePair;
+import by.vsu.math.methods.diffsys.Euler;
+import by.vsu.math.methods.diffsys.RungeKutta;
 import by.vsu.exceptions.IllegalPointsIntervalException;
 import by.vsu.exceptions.IllegalStepValueException;
 import org.springframework.stereotype.Service;

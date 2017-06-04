@@ -30,7 +30,7 @@
     <c:if test="${animatable == true}">
         <div class="form-inline">
             <input type="button" id="animationBtn" class="btn btn-success" value="Анимация">
-            <input type="number" id="delay" class="form-control" value="100">
+            <input type="number" id="delay" class="form-control" min="1" placeholder="Задержка">
         </div>
     </c:if>
 
